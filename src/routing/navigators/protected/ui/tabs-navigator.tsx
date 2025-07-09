@@ -1,55 +1,36 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import React from 'react';
 import {
   DropdownScreen,
   GradientScreen,
   SetTimeScreen,
   UploadImageScreen,
 } from '@routing/navigators/protected';
+import { Header } from '../components';
+import { ParamListBase, RouteProp } from '@react-navigation/native';
 
 const Tab = createBottomTabNavigator();
+
+const renderHeader = (route: RouteProp<ParamListBase, string>) => (
+  <Header title={route.name} />
+);
 
 export const TabsNavigator = () => {
   return (
     <Tab.Navigator
-      screenOptions={{
+      screenOptions={({ route }) => ({
         tabBarActiveTintColor: '#e405fd',
         tabBarInactiveTintColor: 'gray',
         tabBarStyle: {
           paddingBottom: 5,
           height: 64,
         },
-        headerShown: true,
-      }}
+        header: () => renderHeader(route),
+      })}
     >
-      <Tab.Screen
-        name="dropdown"
-        component={DropdownScreen}
-        options={{
-          tabBarLabel: 'TAB 1',
-        }}
-      />
-      <Tab.Screen
-        name="uploadImage"
-        component={UploadImageScreen}
-        options={{
-          tabBarLabel: 'TAB 2',
-        }}
-      />
-      <Tab.Screen
-        name="setTime"
-        component={SetTimeScreen}
-        options={{
-          tabBarLabel: 'TAB 3',
-        }}
-      />
-      <Tab.Screen
-        name="gradient"
-        component={GradientScreen}
-        options={{
-          tabBarLabel: 'TAB 4',
-        }}
-      />
+      <Tab.Screen name="TAB 1" component={DropdownScreen} />
+      <Tab.Screen name="TAB 2" component={UploadImageScreen} />
+      <Tab.Screen name="TAB 3" component={SetTimeScreen} />
+      <Tab.Screen name="TAB 4" component={GradientScreen} />
     </Tab.Navigator>
   );
 };
