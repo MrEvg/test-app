@@ -19,7 +19,7 @@ export const Header = ({ title, showBackButton }: IHeaderProps) => {
       <View style={styles.header}>
         <View style={styles.leftContainer}>
           {shouldShowBack ? (
-            <TouchableOpacity onPress={() => navigation.navigate('start')}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
               <Ionicons name="arrow-back" size={24} color="black" />
             </TouchableOpacity>
           ) : null}
