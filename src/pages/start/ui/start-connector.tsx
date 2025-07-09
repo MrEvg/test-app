@@ -1,20 +1,9 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { Start } from './start';
 
-export const StartConnector = () => {
-  const navigation = useNavigation();
-  return (
-    <View style={styles.container}>
-      <Text>start page</Text>
-      <Button title="next" onPress={() => navigation.navigate('auth')} />
-    </View>
-  );
+interface IStartConnectorProps {
+  onPress: () => void;
+}
+
+export const StartConnector = ({ onPress }: IStartConnectorProps) => {
+  return <Start onPress={onPress} />;
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
