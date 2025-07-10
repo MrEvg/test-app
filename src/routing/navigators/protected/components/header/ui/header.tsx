@@ -14,12 +14,16 @@ export const Header = ({ title, showBackButton }: IHeaderProps) => {
 
   const shouldShowBack = showBackButton ?? route.name === 'auth';
 
+  const handleBackPress = () => {
+    route.name === 'auth' ? navigation.navigate('start') : navigation.goBack();
+  };
+
   return (
     <SafeAreaView edges={['top']} style={styles.safeArea}>
       <View style={styles.header}>
         <View style={styles.leftContainer}>
           {shouldShowBack ? (
-            <TouchableOpacity onPress={() => navigation.goBack()}>
+            <TouchableOpacity onPress={handleBackPress}>
               <Ionicons name="arrow-back" size={24} color="black" />
             </TouchableOpacity>
           ) : null}
