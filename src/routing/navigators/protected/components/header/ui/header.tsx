@@ -1,7 +1,12 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import {
+  CommonActions,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface IHeaderProps {
   title: string;
@@ -16,6 +21,27 @@ export const Header = ({ title, showBackButton }: IHeaderProps) => {
 
   const handleBackPress = () => {
     route.name === 'auth' ? navigation.navigate('start') : navigation.goBack();
+  };
+
+  const handleLogout = async () => {
+    Alert.alert('Выход', 'Вы уверены, что хотите выйти?', [
+      {
+        text: 'Отмена',
+        style: 'cancel',
+      },
+      {
+        text: 'Выйти',
+        onPress: async () => {
+          await AsyncStorage.multiRemove(['userLogin', 'userPassword']);
+          navigation.dispatch(
+            CommonActions.reset({
+              index: 0,
+              routes: [{ name: 'start' }],
+            }),
+          );
+        },
+      },
+    ]);
   };
 
   return (
@@ -33,7 +59,7 @@ export const Header = ({ title, showBackButton }: IHeaderProps) => {
 
         <View style={styles.rightContainer}>
           {!shouldShowBack ? (
-            <TouchableOpacity onPress={() => navigation.navigate('auth')}>
+            <TouchableOpacity onPress={handleLogout}>
               <Ionicons name="log-out-outline" size={24} color="black" />
             </TouchableOpacity>
           ) : null}
