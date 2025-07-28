@@ -1,9 +1,12 @@
 import { StyleSheet, View, Text } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const DropdownConnector = () => {
+  const login = AsyncStorage.getItem('userLogin');
+
   return (
     <View style={styles.container}>
-      <Text>dropdown</Text>
+      <Text>Привет, {login}</Text>
     </View>
   );
 };

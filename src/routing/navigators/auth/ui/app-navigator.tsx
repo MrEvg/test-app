@@ -6,7 +6,7 @@ const Stack = createNativeStackNavigator();
 
 export const AppNavigator = () => (
   <Stack.Navigator
-    screenOptions={{ headerShown: false }}
+    screenOptions={{ headerShown: false, animation: 'fade' }}
     initialRouteName="start"
   >
     <Stack.Screen name="start" component={StartScreen} />

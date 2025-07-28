@@ -1,40 +1,34 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { CommonActions, useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '@routing/navigators/types';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { Header } from '@routing/navigators/protected/components';
+import { useState } from 'react';
+import { Auth } from './auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const AuthConnector = () => {
-  const navigation =
-    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+interface IAuthConnectorProps {
+  onPress: () => void;
+}
 
-  const handlePress = () => {
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 0,
-        routes: [{ name: 'main' }],
-      }),
-    );
+export const AuthConnector = ({ onPress }: IAuthConnectorProps) => {
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
+  const isLoginValid = login.length > 2;
+  const isPasswordValid = password.length > 2;
+
+  const handleAuth = async () => {
+    await AsyncStorage.multiSet([
+      ['userLogin', login],
+      ['userPassword', password],
+    ]);
+    onPress();
   };
 
   return (
-    <View style={styles.mainContainer}>
-      <Header title="Sign in" showBackButton={true} />
-      <View style={styles.container}>
-        <Text>auth page</Text>
-        <Button title="sign in" onPress={handlePress} />
-      </View>
-    </View>
+    <Auth
+      login={login}
+      setLogin={setLogin}
+      password={password}
+      setPassword={setPassword}
+      isLoginValid={isLoginValid}
+      isPasswordValid={isPasswordValid}
+      onPress={handleAuth}
+    />
   );
 };
-
-const styles = StyleSheet.create({
-  mainContainer: {
-    flex: 1,
-  },
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
