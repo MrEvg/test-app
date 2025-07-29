@@ -19,10 +19,17 @@ export const TabsNavigator = () => {
     <Tab.Navigator
       screenOptions={({ route }) => ({
         tabBarActiveTintColor: '#e405fd',
-        tabBarInactiveTintColor: 'gray',
+        tabBarInactiveTintColor: '#000',
+        animation: 'fade',
+        tabBarIconStyle: { height: 0 },
+        tabBarLabelStyle: {
+          fontSize: 16,
+          paddingTop: 10,
+         },
         tabBarStyle: {
           paddingBottom: 5,
           height: 64,
+          backgroundColor: '#C4C4C4',
         },
         header: () => renderHeader(route),
       })}
