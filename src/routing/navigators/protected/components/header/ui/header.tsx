@@ -36,7 +36,7 @@ export const Header = ({ title, showBackButton }: IHeaderProps) => {
           navigation.dispatch(
             CommonActions.reset({
               index: 0,
-              routes: [{ name: 'start' }],
+              routes: [{ name: 'auth' }],
             }),
           );
         },
