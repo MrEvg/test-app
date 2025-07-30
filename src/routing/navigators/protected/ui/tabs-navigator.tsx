@@ -20,7 +20,6 @@ export const TabsNavigator = () => {
       screenOptions={({ route }) => ({
         tabBarActiveTintColor: '#e405fd',
         tabBarInactiveTintColor: '#000',
-        animation: 'fade',
         tabBarIconStyle: { height: 0 },
         tabBarLabelStyle: {
           fontSize: 16,
