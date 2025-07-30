@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Dropdown } from './dropdown';
+import { useFocusEffect } from '@react-navigation/native';
 import { useCallback, useEffect, useState } from 'react';
-import { DROPDOWN_ITEMS } from '@pages/dropdown/constants';
+import { Dropdown } from './dropdown';
+import { DROPDOWN_ITEMS } from '../constants';
 
 export const DropdownConnector = () => {
   const [login, setLogin] = useState('');
@@ -17,6 +18,12 @@ export const DropdownConnector = () => {
     };
     loadLogin();
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => setIsOpen(false);
+    }, []),
+  );
 
   const handleToggle = useCallback(() => {
     setIsOpen(prev => !prev);
