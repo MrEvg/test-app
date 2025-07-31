@@ -15,7 +15,7 @@ export const MainButton = ({
     <TouchableOpacity
       style={[styles.button, disabled && styles.disabledButton]}
       onPress={onPress}
-      activeOpacity={0.75}
+      activeOpacity={0.8}
       disabled={disabled}
     >
       <Text style={styles.text}>{title}</Text>
