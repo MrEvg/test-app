@@ -1,12 +1,21 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { LikeButtonConnector, ResetButton } from '@shared/ui';
 
 type Props = {
   imageUri: string | null;
   onPress: () => void;
   showButton: boolean;
+  resetLike: boolean;
+  onResetPhoto: () => void;
 };
 
-export const UploadImage = ({ imageUri, onPress, showButton }: Props) => {
+export const UploadImage = ({
+  imageUri,
+  onPress,
+  showButton,
+  resetLike,
+  onResetPhoto,
+}: Props) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -23,6 +32,12 @@ export const UploadImage = ({ imageUri, onPress, showButton }: Props) => {
           style={styles.image}
           resizeMode={imageUri ? 'contain' : 'cover'}
         />
+        {imageUri && (
+          <>
+            <LikeButtonConnector externalReset={resetLike} />
+            <ResetButton onPress={onResetPhoto} />
+          </>
+        )}
       </TouchableOpacity>
 
       {showButton && (
@@ -49,7 +64,7 @@ const styles = StyleSheet.create({
     height: 450,
     width: 280,
     borderRadius: 30,
-    overflow: 'hidden',
+    overflow: 'visible',
     backgroundColor: '#000',
   },
   image: {
